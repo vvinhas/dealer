@@ -8,4 +8,4 @@ export default connect(
     risk: state.settings.risk
   }),
   dispatch => bindActionCreators({ savePosition }, dispatch)
-)(({ capital, risk, savePosition, children }) => children({ capital, risk, savePosition }));
+)(({ capital, risk, savePosition, children }) => children({ capital, risk, savePosition }))
