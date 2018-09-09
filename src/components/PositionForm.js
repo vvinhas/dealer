@@ -39,6 +39,7 @@ const PositionForm = () => (
                   className="input"
                   placeholder="Ex: 8,45"
                   value={rawAmount ? amount : ''}
+                  onChange={() => null}
                   onKeyDown={handler}
                 />
               )}
@@ -63,6 +64,7 @@ const PositionForm = () => (
                 className="input"
                 placeholder="Ex: 6,87"
                 value={rawAmount ? amount : ''}
+                onChange={() => null}
                 onKeyDown={handler}
               />
             )}
