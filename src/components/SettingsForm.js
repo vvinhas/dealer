@@ -1,26 +1,10 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import Currency from '../helpers/Currency'
-// import toCurrency from '../helpers/toCurrency'
+import SettingsContainer from '../containers/SettingsContainer'
 
-export default class SettingsForm extends Component
-{
-  static propTypes = {
-    capital: PropTypes.string.isRequired,
-    capitalHandler: PropTypes.func.isRequired,
-    risk: PropTypes.string.isRequired,
-    riskHandler: PropTypes.func.isRequired,
-  }
-
-  render() {
-    const {
-      capital,
-      capitalHandler,
-      risk,
-      riskHandler
-    } = this.props
-
-    return (
+const SettingsForm = () => (
+  <SettingsContainer>
+    {({ capital, risk, setCapital, setRisk }) => (
       <div className="box">
         <div className="columns">
           <div className="column">
@@ -40,7 +24,7 @@ export default class SettingsForm extends Component
                       type="text"
                       placeholder="Ex: R$ 10.000,00"
                       value={rawAmount ? amount : ''}
-                      onChange={() => capitalHandler(rawAmount)}
+                      onChange={() => setCapital(rawAmount)}
                       onKeyDown={handler}
                     />
                   )}
@@ -58,7 +42,7 @@ export default class SettingsForm extends Component
               </label>
               <div className="control">
                 <div className="select">
-                  <select value={risk} onChange={event => riskHandler(event.target.value)}>
+                  <select value={risk} onChange={event => setRisk(event.target.value)}>
                     <option value="0.01">1%</option>
                     <option value="0.02">2%</option>
                     <option value="0.03">3%</option>
@@ -69,6 +53,8 @@ export default class SettingsForm extends Component
           </div>
         </div>
       </div>
-    )
-  }
-}
+    )}
+  </SettingsContainer>
+)
+
+export default SettingsForm
