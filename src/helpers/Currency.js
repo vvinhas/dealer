@@ -1,6 +1,5 @@
 import { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import toCurrency from './toCurrency'
 
 class Currency extends PureComponent
 {
@@ -19,6 +18,26 @@ class Currency extends PureComponent
     this.state = { amount: props.amount }
   }
 
+  toCurrency = number => {
+    // Pad the number
+    const paddedNumber = number
+      .toString()
+      .padStart(11, '0')
+    // Add cents digits
+    const amount = [
+      paddedNumber.slice(0, -2),
+      '.',
+      paddedNumber.slice(-2)
+    ].join('')
+    // Format to currency
+    const currency = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2
+    })
+    return currency.format(amount)
+  }
+
   keyUpHandler = event => {
     const isNumber = /^\d+$/
     const key = event.key
@@ -35,7 +54,7 @@ class Currency extends PureComponent
   }
 
   render = () => this.props.children(
-    toCurrency(this.state.amount),
+    this.toCurrency(this.state.amount),
     this.keyUpHandler,
     this.state.amount
   )

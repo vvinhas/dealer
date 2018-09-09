@@ -1,8 +1,8 @@
 import { Actions } from '../actions/settingsActions'
 
 const initialState = {
-  capital: '',
-  risk: '0.02'
+  capital: '2000000',
+  risk: '2'
 }
 
 export default (state = initialState, action) => {

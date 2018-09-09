@@ -43,9 +43,9 @@ const SettingsForm = () => (
               <div className="control">
                 <div className="select">
                   <select value={risk} onChange={event => setRisk(event.target.value)}>
-                    <option value="0.01">1%</option>
-                    <option value="0.02">2%</option>
-                    <option value="0.03">3%</option>
+                    <option value="1">1%</option>
+                    <option value="2">2%</option>
+                    <option value="3">3%</option>
                   </select>
                 </div>
               </div>
