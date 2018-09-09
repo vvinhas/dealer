@@ -1,4 +1,5 @@
 import React from 'react'
+import Currency from '../helpers/Currency'
 
 const PositionForm = () => (
   <div className="box">
@@ -31,11 +32,17 @@ const PositionForm = () => (
             <span>Entrada</span>
           </label>
           <div className="control">
-            <input
-              type="text"
-              className="input"
-              placeholder="Ex: 8,45"
-            />
+            <Currency amount="" maxLength={5}>
+              {(amount, handler, rawAmount) => (
+                <input
+                  type="text"
+                  className="input"
+                  placeholder="Ex: 8,45"
+                  value={rawAmount ? amount : ''}
+                  onKeyDown={handler}
+                />
+              )}
+            </Currency>
           </div>
         </div>
       </div>
@@ -49,24 +56,30 @@ const PositionForm = () => (
             <span>Saída</span>
           </label>
           <div className="control">
-            <input
-              type="text"
-              className="input"
-              placeholder="Ex: 6,87"
-            />
+          <Currency amount="" maxLength={5}>
+            {(amount, handler, rawAmount) => (
+              <input
+                type="text"
+                className="input"
+                placeholder="Ex: 6,87"
+                value={rawAmount ? amount : ''}
+                onKeyDown={handler}
+              />
+            )}
+          </Currency>
           </div>
         </div>
       </div>
       {/* Button */}
       <div className="column">
         <div className="field">
-          <label className="label">&nbsp;</label>
+          <label className="label is-hidden-mobile">&nbsp;</label>
           <div className="control">
             <button className="button is-info">
               <span className="icon">
-                <i className="fas fa-plus"></i>
+                <i className="fas fa-save"></i>
               </span>
-              <span>Gravar</span>
+              <span>Salvar</span>
             </button>
           </div>
         </div>
