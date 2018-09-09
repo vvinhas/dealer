@@ -5,13 +5,13 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case "SET_CAPITAL":
+    case 'SET_CAPITAL':
       return {
         ...state,
         capital: action.capital
       };
 
-    case "SET_RISK":
+    case 'SET_RISK':
       return {
         ...state,
         risk: action.risk
