@@ -6,8 +6,20 @@ class PositionForm extends Component
 {
   state = {
     asset: 'petr4',
-    entry: '845',
-    exit: '687'
+    entry: '1500',
+    exit: '1400'
+  }
+
+  entryInput = React.createRef()
+  exitInput = React.createRef()
+
+  saveHandler = (capital, risk, savePosition) => {
+    savePosition({ capital, risk, ...this.state })
+    this.setState({
+      asset: '',
+      entry: '',
+      exit: ''
+    })
   }
 
   render() {
@@ -49,6 +61,7 @@ class PositionForm extends Component
                     <Currency amount={this.state.entry} maxLength={5}>
                       {(amount, handler, rawAmount) => (
                         <input
+                          ref={this.entryInput}
                           type="text"
                           className="input"
                           placeholder="Ex: 8,45"
@@ -74,6 +87,7 @@ class PositionForm extends Component
                   <Currency amount={this.state.exit} maxLength={5}>
                     {(amount, handler, rawAmount) => (
                       <input
+                        ref={this.exitInput}
                         type="text"
                         className="input"
                         placeholder="Ex: 6,87"
@@ -93,7 +107,7 @@ class PositionForm extends Component
                   <div className="control">
                     <button
                       className="button is-info"
-                      onClick={() => savePosition({ capital, risk, ...this.state })}
+                      onClick={() => this.saveHandler(capital, risk, savePosition)}
                     >
                       <span className="icon">
                         <i className="fas fa-save"></i>

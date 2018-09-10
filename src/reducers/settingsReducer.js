@@ -1,7 +1,7 @@
 import { Actions } from '../actions/settingsActions'
 
 const initialState = {
-  capital: '2000000',
+  capital: '',
   risk: '2'
 }
 
