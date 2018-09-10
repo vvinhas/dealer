@@ -11,6 +11,20 @@ class PositionForm extends Component
   }
 
   saveHandler = (capital, risk, savePosition) => {
+    const { asset, entry, exit } = this.state
+    try {
+      if (asset === '')
+        throw new Error('Informe o código do ATIVO.')
+      if (entry === '')
+        throw new Error('Informe o valor de ENTRADA.')
+      if (exit === '')
+        throw new Error('Informe o valor de SAÍDA.')
+      if (parseInt(entry) <= parseInt(exit))
+        throw new Error('Valor de ENTRADA menor que SAÍDA.')
+    } catch (error) {
+      alert(error)
+      return
+    }
     savePosition({ capital, risk, ...this.state })
     this.setState({
       asset: '',
