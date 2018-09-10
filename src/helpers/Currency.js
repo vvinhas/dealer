@@ -13,11 +13,6 @@ class Currency extends PureComponent
     maxLength: 9
   }
 
-  constructor(props) {
-    super(props)
-    this.state = { amount: props.amount }
-  }
-
   toCurrency = number => {
     // Pad the number
     const paddedNumber = number
@@ -38,25 +33,24 @@ class Currency extends PureComponent
     return currency.format(amount)
   }
 
-  keyUpHandler = event => {
+  handler = key => {
+    const { amount, maxLength } = this.props
     const isNumber = /^\d+$/
-    const key = event.key
-    const { amount } = this.state
-    const { maxLength } = this.props
     // Add a number
     if (isNumber.test(key) && amount.length <= maxLength) {
-      this.setState(prev => ({ amount: prev.amount.concat(key) }))
+      return amount.concat(key)
     }
     // Remove a number
     if (key === 'Backspace' || key === 'Delete') {
-      this.setState(prev => ({ amount: prev.amount.slice(0, -1) }))
+      return amount.slice(0, -1)
     }
+
+    return amount
   }
 
   render = () => this.props.children(
-    this.toCurrency(this.state.amount),
-    this.keyUpHandler,
-    this.state.amount
+    this.toCurrency(this.props.amount),
+    this.handler
   )
 }
 

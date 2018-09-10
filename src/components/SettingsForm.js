@@ -17,15 +17,15 @@ const SettingsForm = () => (
               </label>
               <div className="control">
                 <Currency amount={capital} maxLength={9}>
-                  {(amount, handler, rawAmount) => (
+                  {(amount, handler) => (
                     <input
                       autoFocus
                       className="input"
                       type="text"
                       placeholder="Ex: R$ 10.000,00"
-                      value={rawAmount ? amount : ''}
-                      onChange={() => setCapital(rawAmount)}
-                      onKeyDown={handler}
+                      value={capital ? amount : ''}
+                      onChange={() => null}
+                      onKeyDown={event => setCapital(handler(event.key))}
                     />
                   )}
                 </Currency>

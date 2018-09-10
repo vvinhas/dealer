@@ -5,13 +5,10 @@ import Currency from '../helpers/Currency'
 class PositionForm extends Component
 {
   state = {
-    asset: 'petr4',
-    entry: '1500',
-    exit: '1400'
+    asset: '',
+    entry: '',
+    exit: ''
   }
-
-  entryInput = React.createRef()
-  exitInput = React.createRef()
 
   saveHandler = (capital, risk, savePosition) => {
     savePosition({ capital, risk, ...this.state })
@@ -23,12 +20,12 @@ class PositionForm extends Component
   }
 
   render() {
+    const { asset, entry, exit } = this.state
     return (
       <PositionFormContainer>
         {({ capital, risk, savePosition }) => (
           <div className="box">
             <div className="columns">
-              {/* Ativo */}
               <div className="column">
                 <div className="field">
                   <label className="label">
@@ -42,13 +39,12 @@ class PositionForm extends Component
                       type="text"
                       className="input is-uppercase"
                       placeholder="Ex: PETR4"
-                      value={this.state.asset}
+                      value={asset}
                       onChange={event => this.setState({ asset: event.target.value })}
                     />
                   </div>
                 </div>
               </div>
-              {/* Entrada */}
               <div className="column">
                 <div className="field">
                   <label className="label">
@@ -58,23 +54,21 @@ class PositionForm extends Component
                     <span>Entrada</span>
                   </label>
                   <div className="control">
-                    <Currency amount={this.state.entry} maxLength={5}>
-                      {(amount, handler, rawAmount) => (
+                    <Currency amount={entry} maxLength={5}>
+                      {(amount, handler) => (
                         <input
-                          ref={this.entryInput}
                           type="text"
                           className="input"
                           placeholder="Ex: 8,45"
-                          value={rawAmount ? amount : ''}
-                          onChange={() => this.setState({ entry: rawAmount })}
-                          onKeyDown={handler}
+                          value={entry ? amount : ''}
+                          onChange={() => {}}
+                          onKeyDown={event => this.setState({ entry: handler(event.key) })}
                         />
                       )}
                     </Currency>
                   </div>
                 </div>
               </div>
-              {/* Saída */}
               <div className="column">
                 <div className="field">
                   <label className="label">
@@ -84,29 +78,28 @@ class PositionForm extends Component
                     <span>Saída</span>
                   </label>
                   <div className="control">
-                  <Currency amount={this.state.exit} maxLength={5}>
-                    {(amount, handler, rawAmount) => (
+                  <Currency amount={exit} maxLength={5}>
+                    {(amount, handler) => (
                       <input
-                        ref={this.exitInput}
                         type="text"
                         className="input"
                         placeholder="Ex: 6,87"
-                        value={rawAmount ? amount : ''}
-                        onChange={() => this.setState({ exit: rawAmount })}
-                        onKeyDown={handler}
+                        value={exit ? amount : ''}
+                        onChange={() => {}}
+                        onKeyDown={event => this.setState({ exit: handler(event.key) })}
                       />
                     )}
                   </Currency>
                   </div>
                 </div>
               </div>
-              {/* Button */}
               <div className="column">
                 <div className="field">
                   <label className="label is-hidden-mobile">&nbsp;</label>
                   <div className="control">
                     <button
                       className="button is-info"
+                      disabled={capital ? false : true}
                       onClick={() => this.saveHandler(capital, risk, savePosition)}
                     >
                       <span className="icon">
